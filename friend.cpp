@@ -1,40 +1,29 @@
-
 #include <iostream>
-using namespace std;
-
-// forward declaration
-
-class ClassA {
-    private:
-        int numA;
-
-        // friend class declaration
-        friend class ClassB;
-
-    public:
-        // constructor to initialize numA to 12
-        
-        ClassA() : numA(12) {}
+class base {
+private:
+    int a;
+ 
+public:
+    base() { a = 0; }
+    friend class derived; // its is Friend Class
 };
-
-class ClassB {
-    private:
-        int numB;
-
-    public:
-        // constructor to initialize numB to 1
-        ClassB() : numB(1) {}
-    
-    // member function to add numA
-    // from ClassA and numB from ClassB
-    int add() {
-        ClassA objectA;
-        return objectA.numA + numB;
+ 
+class derived {
+private:
+    int b;
+ 
+public:
+    void show_base(base& h)
+    {
+        // "derived" is a friend of "base" it can access private members of "base"
+        std::cout << "base::a=" << h.a;
     }
 };
-
-int main() {
-    ClassB objectB;
-    cout << "Sum: " << objectB.add();
+ 
+int main()
+{
+    base a;
+    derived b;
+    b.show_base(a);
     return 0;
 }
